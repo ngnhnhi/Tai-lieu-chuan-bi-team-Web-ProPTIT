@@ -1,0 +1,224 @@
+```html
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${profile.fullName} + ' | Portfolio'">Hồ sơ cá nhân</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff1f7, #eaf9fb);
+            color: #4a5568;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 580px;
+            border-radius: 22px;
+            box-shadow: 0 12px 35px rgba(150, 170, 190, 0.15);
+            padding: 38px;
+            border: 1px solid #f8dce9;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f7a8c4, #9edfe4);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            font-weight: 700;
+            margin: 0 auto 16px;
+            box-shadow: 0 6px 18px rgba(222, 157, 185, 0.25);
+        }
+
+        .name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #394454;
+            margin-bottom: 7px;
+        }
+
+        .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #d783a7;
+            letter-spacing: 0.3px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #79bfc5;
+            margin-bottom: 10px;
+        }
+
+        .bio-box {
+            background: linear-gradient(135deg, #fff5f9, #f1fbfc);
+            border-left: 3px solid #f2a7c2;
+            padding: 15px 17px;
+            border-radius: 5px 10px 10px 5px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #5f6875;
+            margin-bottom: 26px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 30px;
+            list-style: none;
+        }
+
+        .skill-item {
+            background: #eef9fa;
+            color: #579da4;
+            padding: 7px 14px;
+            border: 1px solid #d6eff1;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            border-top: 1px solid #f1dfe7;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 13px;
+        }
+
+        .contact-link {
+            color: #687381;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .contact-link:hover {
+            color: #d783a7;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 28px 22px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="header">
+
+        <!-- Lấy chữ cái đầu tiên của tên làm Avatar -->
+        <div class="avatar"
+             th:text="${#strings.substring(profile.fullName, 0, 1)}">
+            A
+        </div>
+
+        <!-- Lấy dữ liệu từ Object Profile -->
+        <h1 class="name"
+            th:text="${profile.fullName}">
+            Họ và Tên
+        </h1>
+
+        <p class="title"
+           th:text="${profile.title}">
+            Chức danh chuyên môn
+        </p>
+
+    </div>
+
+    <div class="section-title">
+        Giới thiệu
+    </div>
+
+    <div class="bio-box"
+         th:text="${profile.bio}">
+        Đoạn văn giới thiệu bản thân...
+    </div>
+
+    <div class="section-title">
+        About Me
+    </div>
+
+    <!-- Duyệt danh sách skills từ Object Profile -->
+    <ul class="skills-list">
+
+        <li class="skill-item"
+            th:each="skill : ${profile.skills}"
+            th:text="${skill}">
+            Tên kỹ năng
+        </li>
+
+    </ul>
+
+    <div class="contact-info">
+
+        <a class="contact-link"
+           th:href="'mailto:' + ${profile.email}">
+
+            ✉️
+
+            <span th:text="${profile.email}">
+                email@example.com
+            </span>
+
+        </a>
+
+        <a class="contact-link"
+           th:href="${profile.github}"
+           target="_blank">
+
+            🔗
+
+            <span>
+                GitHub Profile
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+```
